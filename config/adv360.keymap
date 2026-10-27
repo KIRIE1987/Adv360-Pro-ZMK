@@ -1,6 +1,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/stp.h>
 #include <dt-bindings/zmk/backlight.h>
@@ -19,6 +20,44 @@
           quick_tap_ms = <175>;
           flavor = "tap-preferred";
           bindings = <&kp>, <&kp>;
+      };
+
+      // 出力先の切り替え: USB(電カル等のWindows)はWin層、Bluetooth(Mac)はBase
+      usb_win: usb_win {
+          compatible = "zmk,behavior-macro";
+          #binding-cells = <0>;
+          display-name = "USB + Win keys";
+          bindings = <&out OUT_USB &to 4>;
+      };
+      bt_mac0: bt_mac0 {
+          compatible = "zmk,behavior-macro";
+          #binding-cells = <0>;
+          display-name = "BT1 + Mac keys";
+          bindings = <&out OUT_BLE &bt BT_SEL 0 &to 0>;
+      };
+      bt_mac1: bt_mac1 {
+          compatible = "zmk,behavior-macro";
+          #binding-cells = <0>;
+          display-name = "BT2 + Mac keys";
+          bindings = <&out OUT_BLE &bt BT_SEL 1 &to 0>;
+      };
+      bt_mac2: bt_mac2 {
+          compatible = "zmk,behavior-macro";
+          #binding-cells = <0>;
+          display-name = "BT3 + Mac keys";
+          bindings = <&out OUT_BLE &bt BT_SEL 2 &to 0>;
+      };
+      bt_mac3: bt_mac3 {
+          compatible = "zmk,behavior-macro";
+          #binding-cells = <0>;
+          display-name = "BT4 + Mac keys";
+          bindings = <&out OUT_BLE &bt BT_SEL 3 &to 0>;
+      };
+      bt_mac4: bt_mac4 {
+          compatible = "zmk,behavior-macro";
+          #binding-cells = <0>;
+          display-name = "BT5 + Mac keys";
+          bindings = <&out OUT_BLE &bt BT_SEL 4 &to 0>;
       };
     };
 
@@ -58,16 +97,22 @@
     mod {
       display-name = "Mod";
       bindings = <
-        &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none                                                                     &trans                 &none        &none        &none        &none &none &none
+        &usb_win &bt_mac0 &bt_mac1 &bt_mac2 &bt_mac3 &bt_mac4 &none                                                                     &trans                 &none        &none        &none        &none &none &none
         &none &none        &none        &none        &none        &none        &bootloader                                                               &bootloader            &none        &none        &none        &none &none &none
         &studio_unlock &none        &none        &none        &none        &none        &none                   &none &none &bt BT_CLR &none                      &stp STP_BAT &none        &none        &none        &none &none &none
         &none &none        &none        &none        &macro_ver   &none                                      &none &none                                                        &none        &none        &none        &none &none &none
         &none &none        &none        &none        &none                                       &none &none &none &none      &bl BL_TOG &rgb_ug RGB_TOG                                     &bl BL_INC   &bl BL_DEC   &none &none &none
       >;
     };
-    extra1 { 
-      display-name = "Red";    
-      status = "reserved";
+    win {
+      display-name = "Win";
+      bindings = <
+        &trans &trans &trans &trans &trans &trans &trans     &trans &trans &trans &trans &trans &trans &trans
+        &trans &trans &trans &trans &trans &trans &kp LC(C)     &kp LG(LS(S)) &trans &trans &trans &trans &trans &trans
+        &trans &trans &trans &trans &trans &trans &kp LC(V)     &trans &trans &kp LCTRL &trans     &trans &trans &trans &trans &trans &trans &trans
+        &trans &trans &trans &trans &trans &trans     &trans &trans     &trans &trans &trans &trans &trans &trans
+        &trans &kp LA(TAB) &kp LCTRL &trans &trans     &trans &trans &kp LG(LS(S)) &trans &trans &trans     &trans &trans &trans &trans &trans
+      >;
     };
 
     extra2 { 
