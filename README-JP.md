@@ -37,6 +37,20 @@
 
 順番: settings-reset を左→右 → 新ファーム left.uf2 を左 → right.uf2 を右 → 両方の電源を入れ直す（左が先）
 
+## Mac ⇔ 電カル（Windows）の切り替え
+
+USBケーブルは電カル端末へ、MacとはBluetooth（プロファイル1）でつなぐ。
+
+| 操作 | 送り先 | キーの働き |
+|---|---|---|
+| Mod＋左上の＝ | USB（ケーブルの先） | Windows用：Caps・右親指⌘＝Ctrl、HK1/HK2＝Ctrl+C/Ctrl+V、`＝Alt+Tab、HK3・左親指End＝Win+Shift+S |
+| Mod＋1〜5 | Bluetooth 1〜5 | Mac用（いつものキー） |
+
+- 英数/かな（親指）はWindowsでもIMEオフ/オンとして効く（HID LANG2/LANG1）
+- Windows用のとき Mod+HK1/HK3（ブートローダー）は押しても入らない。書き込みは Mod+1 で Mac用に戻してから
+- 電源を入れ直すとキーの働きはMac用に戻る（送り先は覚えている）。電カルで使うときはもう一度 Mod＋＝
+- Macとの初回ペアリング: Mod+1 → Mod+右親指⌘（プロファイルの消去）→ Macの設定 > Bluetooth で Adv360 Pro に接続
+
 ## ファイル構成
 
 - `config/adv360.keymap` — キーマップ本体（ZMK形式）
